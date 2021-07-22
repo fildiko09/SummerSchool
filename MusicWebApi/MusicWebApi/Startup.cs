@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace MusicWebApi
 {
@@ -28,6 +29,26 @@ namespace MusicWebApi
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = "https://localhost:44328",
+                    ValidAudience = "https://localhost:44328",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySecretKey@2020"))
+                };
+            });
+
             var connectionString = Configuration["ConnectionStrings:MusicDBConnectionString"];
             services.AddDbContext<MusicContext>(o => o.UseSqlServer(connectionString));
 
@@ -53,6 +74,9 @@ namespace MusicWebApi
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "YU5710U6QHUret9vZNO2ymyrKk8lkA+0fRX9W3qgPImr5UXsVN+AdId7SjBc1Q+wKOlbkh6b2oxPXZiWGrSLfw==",
+  "dgSpecHash": "WhhPZnWmRRfBF1OjUVetnirdFiMjd4L0KHlXwAe8EN0GyXKgn8XLkgzlmv0xh0Bh5qKMQddU1P8dw+cSJGWySQ==",
   "success": true,
   "projectFilePath": "D:\\Practica\\SummerSchool\\MusicWebApi\\MusicWebApi\\MusicWebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\foris\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\foris\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\foris\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\foris\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.17\\microsoft.aspnetcore.authentication.jwtbearer.3.1.17.nupkg.sha512",
     "C:\\Users\\foris\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\foris\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\foris\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",

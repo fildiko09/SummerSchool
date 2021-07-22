@@ -2,7 +2,6 @@
 using MusicWebApi.Entities;
 using MusicWebApi.ExternalModels;
 using MusicWebApi.Services.UnitsOfWork;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -67,6 +66,39 @@ namespace MusicWebApi.Controllers
             return CreatedAtRoute("GetUser",
                 new { id = userEntity.ID },
                 _mapper.Map<UserDTO>(userEntity));
+        }
+
+        [Route("login")]
+        [HttpPost]
+        public IActionResult Login([FromBody] LoginDTO user)
+        {
+            if (user == null)
+            {
+                return BadRequest("Invalid client request.");
+            }
+
+            var foundUser = _userUnit.Users.FindDefault(u => u.Email.Equals(user.Email) && u.Password.Equals(user.Password) && (u.Deleted == false || u.Deleted == null));
+
+            if (foundUser != null)
+            {
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySecretKey@2020"));
+                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+
+                var tokeOptions = new JwtSecurityToken(
+                    issuer: "https://localhost:44328",
+                    audience: "https://localhost:44328",
+                    claims: new List<Claim>(),
+                    expires: DateTime.Now.AddHours(8),
+                    signingCredentials: signinCredentials
+                );
+
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                return Ok(new { Token = tokenString });
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
     }
 }
